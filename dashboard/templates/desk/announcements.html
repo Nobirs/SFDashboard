@@ -1,0 +1,61 @@
+{% extends 'flatpages/default.html' %}
+
+
+{% block content %}
+    {% for first, second in announcements_indexes %}
+        <div class="row">
+            {% if first is not None %}
+                <div class="col-sm-6">
+                    <div class="div_prok">
+                    <h2>{{ first.get_category_display }}</h2>
+                    <h4>{{ first.title }}</h4>
+                        {% autoescape off %}
+                            {{ first.content.html }}
+                        {% endautoescape %}
+                    </div>
+                    <div class="navbar">
+                        <a href="{% url 'announcement' first.id %}">Detail</a>
+                        {% if request.user.is_authenticated and request.user.id != first.author.id %}
+                            <a href="{% url 'latest_response' first.id %}#zatemnenie" class="active">Response</a>
+                        {% endif %}
+                        {% if request.user.id == first.author.id %}
+                            <a href="{% url 'update' first.id %}">Update</a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+            {% if second is not None %}
+                <div class="col-sm-6">
+                    <div class="div_prok">
+                        <h2>{{ second.get_category_display }}</h2>
+                    <h4>{{ second.title }}</h4>
+                        {% autoescape off %}
+                            {{ second.content.html }}
+                        {% endautoescape %}
+                    </div>
+                    <div class="navbar">
+                        <a href="{% url 'announcement' second.id %}">Detail</a>
+                        {% if request.user.is_authenticated and request.user.id != second.author.id %}
+                            <a href="{% url 'latest_response' second.id %}#zatemnenie" class="active">Response</a>
+                        {% endif %}
+                        {% if request.user.id == second.author.id %}
+                            <a href="{% url 'update' second.id %}">Update</a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+
+<div id="zatemnenie">
+      <div id="okno">
+        <form method="POST">
+          {% csrf_token %}
+          {{ resp_form.as_p }}
+            <input type="submit" value="Отправить">
+            <input type="hidden" value="{{ next }}">
+        </form>
+      </div>
+    </div>
+
+{% endblock %}

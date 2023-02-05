@@ -1,0 +1,36 @@
+{% extends 'flatpages/default.html' %}
+
+{% block filters %}
+<form action="" method="get">
+       <p>
+           <label for="id_announcement">Announcement</label>
+           <select name="announcement" id="id_announcement">
+               <option value selected>---------</option>
+               {% for ann in user_announcements %}
+                <option value="{{ ann.id }}">{{ ann.title }}</option>
+               {% endfor %}
+           </select>
+       </p>
+       <input type="submit" value="Найти">
+</form>
+{% endblock filters %}
+
+{% block content %}
+    {% for resp in responses %}
+        <div class="row">
+                <div class="col-sm-6">
+                    <div class="div_prok">
+                    <h3><b>Author:</b> {{ resp.author.username }}</h3><br>
+                        <h4><b>Title:</b> {{ resp.content }}</h4><br>
+                        <h5><b>Content:</b> {{ resp.announcement.title }}</h5>
+                    </div>
+                    <div class="navbar">
+                        {% if perms.desk.delete_resp %}
+                          <a href="{% url 'delete_resp' pk=resp.id %}" class="active">Delete</a>
+                        {% endif %}
+                          <a href="{% url 'accept_resp' pk=resp.id %}" class="{% if not resp.accepted %}active{% endif %}">Accept</a>
+                    </div>
+                </div>
+        </div>
+    {% endfor %}
+{% endblock %}

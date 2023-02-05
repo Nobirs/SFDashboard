@@ -1,0 +1,13 @@
+{% extends 'flatpages/default.html' %}
+
+{% block quill_form %}
+    {{ form.media }}
+{% endblock %}
+
+{% block content %}
+    <h2>{{ announcement.get_category_display }}</h2>
+    <h3>{{ announcement.title }}</h3>
+    {% autoescape off %}
+    {{ announcement.content.html }}
+{% endautoescape %}
+{% endblock %}

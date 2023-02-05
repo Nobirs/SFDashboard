@@ -1,0 +1,14 @@
+{% extends 'flatpages/default.html' %}
+
+{% block quill_form %}
+    {{ form.media }}
+{% endblock %}
+
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Create announcement">
+        <input type="hidden" value="{{ next }}">
+    </form>
+{% endblock %}

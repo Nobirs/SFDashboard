@@ -1,0 +1,11 @@
+{% extends 'flatpages/default.html' %}
+
+{% block content %}
+<h1>Delete response?</h1>
+<form action="" method="post">
+    {% csrf_token %}
+    <p>Delete "{{ resp.content }}"?</p>
+    <input type="submit" value="Delete" />
+</form>
+<hr>
+{% endblock content %}

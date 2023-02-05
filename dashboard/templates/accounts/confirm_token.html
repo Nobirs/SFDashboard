@@ -1,0 +1,9 @@
+{% block content %}
+<h3>{{ request.session.new_user}} Confirmation</h3>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Continue">
+    <input type="hidden" value="{{ next }}">
+</form>
+{% endblock %}

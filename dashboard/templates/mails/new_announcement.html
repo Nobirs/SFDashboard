@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New announcement on WoW</title>
+    {% block quill_form %}
+        {{ form.media }}
+    {% endblock %}
+</head>
+<body>
+{% block content %}
+    <h2>{{ announcement.get_category_display }}</h2>
+    <h3>{{ announcement.title }}</h3>
+    {% autoescape off %}
+        {{ announcement.content.html }}
+    {% endautoescape %}
+{% endblock %}
+</body>
+</html>
