@@ -4,6 +4,7 @@ from .views import CreateAnnouncementView, AnnouncementDetailView, AnnouncementE
 
 
 urlpatterns = [
+    path('', AnnouncementsView.as_view(), name='home_page'),
     path('new/', CreateAnnouncementView.as_view(), name='new_announcement'),
     path('<int:pk>/', AnnouncementDetailView.as_view(), name='announcement'),
     path('<int:pk>/update/', AnnouncementEditView.as_view(), name='update'),

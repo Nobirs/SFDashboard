@@ -36,7 +36,6 @@ class AnnouncementDetailView(DetailView):
     context_object_name = 'announcement'
 
 
-# TODO: Edit post can only author of that post
 class AnnouncementEditView(PermissionRequiredMixin, UpdateView):
     permission_required = ('desk.change_announcement')
     model = Announcement
@@ -90,7 +89,6 @@ class AnnouncementsView(ListView):
         print(f"User: {user}\nContent: {content}")
         print(f"URL from: {request.path}\n path: {request.build_absolute_uri()}")
         print(f"announcement id: {announcement_id}")
-        # TODO: Find the way to not use absolute url
         return redirect('/announcement/latest/#')
 
 

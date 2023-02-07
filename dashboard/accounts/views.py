@@ -33,7 +33,6 @@ class SignUpView(CreateView):
         new_user_token = Token(token=generate_key(), user=new_user)
         new_user_token.save()
 
-        # TODO: change send_mail to task(to send async) using celery
         send_mail(
             "Confirm authorization at Dashboard",
             f"Token: {new_user_token.token}",
@@ -81,6 +80,4 @@ class ConfirmTokenView(CreateView):
             user.user_permissions.add(delete_announcement)
             user.save()
             return HttpResponseRedirect(self.get_success_url())
-        # TODO: add message if token is wrong
-        # TODO: add logging
         return super().form_invalid(form)
