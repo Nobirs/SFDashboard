@@ -75,9 +75,15 @@ class ConfirmTokenView(CreateView):
             add_announcement = Permission.objects.get(codename='add_announcement')
             change_announcement = Permission.objects.get(codename='change_announcement')
             delete_announcement = Permission.objects.get(codename='delete_announcement')
+            delete_resp = Permission.objects.get(codename='delete_resp')
+            change_resp = Permission.objects.get(codename='change_resp')
+
             user.user_permissions.add(add_announcement)
             user.user_permissions.add(change_announcement)
             user.user_permissions.add(delete_announcement)
+            user.user_permissions.add(delete_resp)
+            user.user_permissions.add(change_resp)
+
             user.save()
             return HttpResponseRedirect(self.get_success_url())
         return super().form_invalid(form)

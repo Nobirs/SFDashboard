@@ -98,8 +98,11 @@ class UserRespView(LoginRequiredMixin, ListView):
     context_object_name = 'responses'
 
     def get_queryset(self):
-        queryset = self.request.user.resp_set.all()
+        #queryset = self.request.user.resp_set.all()
+        queryset = Resp.objects.filter(announcement__author=self.request.user)
+        print("Query from filter: ", queryset)
         self.filterset = RespFilter(self.request.GET, queryset=queryset, request=self.request)
+        print("Responses from filter: ", self.filterset.qs)
         return self.filterset.qs
 
     def get_context_data(self, *args, **kwargs):

@@ -41,7 +41,6 @@ class Announcement(LifecycleModel):
         from .tasks import send_mass_emails_to_users
         send_mass_emails_to_users.delay(self.id, self.author.id)
 
-
     def __str__(self):
         return self.title[:20]
 
